@@ -22,9 +22,9 @@ This application is a Task Management API built with .NET 8. It allows users to 
 1. Clone the repository:
    ```bash
    git clone https://github.com/kaleemiqbal4/POCTaskManagementAPI.git
+   ```
 
-
-   ### Summary of Sections
+### Summary of Sections
 
 1. **Overview**: A brief description of the application and its purpose.
 2. **Features**: A list of functionalities provided by the API.
