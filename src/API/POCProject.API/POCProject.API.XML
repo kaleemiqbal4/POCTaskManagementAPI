@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>POCProject.API</name>
+    </assembly>
+    <members>
+        <member name="T:POCProject.API.Controllers.TaskColumnController">
+            <summary>
+            Controller for managing task columns in the task management application.
+            </summary>
+        </member>
+        <member name="M:POCProject.API.Controllers.TaskColumnController.#ctor(POCProject.Services.Contract.ITaskColumnService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:POCProject.API.Controllers.TaskColumnController"/> class.
+            </summary>
+            <param name="_taskColumnService">The service to manage task columns.</param>
+        </member>
+        <member name="M:POCProject.API.Controllers.TaskColumnController.CreateColumnAsync(POCProject.Models.Request.TaskColumnModel,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new column in the task board based on the provided <see cref="T:POCProject.Models.Request.TaskColumnModel"/>.
+            </summary>
+            <param name="taskColumn">The model containing the details of the column to be created.</param>
+            <param name="cancellationToken">Token to monitor for cancellation requests.</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> indicating the result of the operation.</returns>
+            <response code="200">Returns the created column.</response>
+            <response code="400">If the column creation fails due to invalid input.</response>
+        </member>
+        <member name="M:POCProject.API.Controllers.TaskColumnController.GetColumnsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Retrieves all columns from the task board.
+            </summary>
+            <param name="cancellationToken">Token to monitor for cancellation requests.</param>
+            <returns>A list of columns in the task board.</returns>
+            <response code="200">Returns a list of task columns.</response>
+            <response code="404">If no columns are found.</response>
+        </member>
+        <member name="T:POCProject.API.Controllers.TasksController">
+            <summary>
+            Handles HTTP requests related to task management, including creating, updating, deleting, 
+            and retrieving tasks. This controller provides endpoints for managing tasks within the 
+            application and supports operations like moving tasks between columns.
+            </summary>
+        </member>
+        <member name="M:POCProject.API.Controllers.TasksController.#ctor(Microsoft.Extensions.Logging.ILogger{POCProject.API.Controllers.TasksController},POCProject.Services.Contract.ITasksService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:POCProject.API.Controllers.TasksController"/> class.
+            </summary>
+            <param name="_logger">The logger instance for logging information.</param>
+            <param name="_tasksService">The user service instance for user-related operations.</param>
+        </member>
+        <member name="M:POCProject.API.Controllers.TasksController.CreateTaskAsync(POCProject.Models.Request.TasksModel,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new task based on the provided <see cref="T:POCProject.Models.Request.TasksModel"/>.
+            </summary>
+            <param name="request">The model containing details of the task to be created.</param>
+            <param name="cancellationToken"></param>
+            <returns>An IActionResult indicating the result of the operation.</returns>
+        </member>
+        <member name="M:POCProject.API.Controllers.TasksController.GetTaskListAsync(System.Threading.CancellationToken)">
+            <summary>
+            Retrieves All the tasks.
+            </summary>
+            <returns>An IActionResult containing the task details.</returns>
+        </member>
+        <member name="M:POCProject.API.Controllers.TasksController.GetTaskByIdAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Gets a task by its ID.
+            </summary>
+            <param name="id">The ID of the task to retrieve.</param>
+            <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+            <returns>A <see cref="T:POCProject.Models.Response.BusinessResponse"/> containing the task details if found.</returns>
+        </member>
+        <member name="T:POCProject.API.Extensions.CorsExtendExtension">
+            <summary>
+            Provides extension methods for configuring Cross-Origin Resource Sharing (CORS) in a web application.
+            This class allows you to easily add and configure CORS policies for the application.
+            </summary>
+        </member>
+        <member name="M:POCProject.API.Extensions.CorsExtendExtension.ExtendCors(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Configures the default CORS policy for the application.
+            Allows any origin, any header, and any HTTP method.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Builder.WebApplicationBuilder"/> instance to which the CORS configuration will be applied.</param>
+        </member>
+        <member name="T:POCProject.API.Extensions.RegisterDependency">
+            <summary> </summary>
+        </member>
+        <member name="M:POCProject.API.Extensions.RegisterDependency.ConfigureDependency(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary></summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:POCProject.API.Extensions.SwaggerRegistration">
+            <summary>Swagger Registration</summary>
+        </member>
+        <member name="M:POCProject.API.Extensions.SwaggerRegistration.SetupSwagger(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Register Swagger
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:POCProject.API.Middleware.GlobalExceptionHandlerMiddleware">
+            <summary>
+            Middleware for globally handling exceptions in the application.
+            Catches database update exceptions and other general exceptions,
+            providing user-friendly error messages.
+            </summary>
+        </member>
+        <member name="M:POCProject.API.Middleware.GlobalExceptionHandlerMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Initializes a new instance of the <see cref="T:POCProject.API.Middleware.GlobalExceptionHandlerMiddleware"/> class.
+            </summary>
+            <param name="next">The next middleware in the pipeline.</param>
+        </member>
+        <member name="M:POCProject.API.Middleware.GlobalExceptionHandlerMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Invokes the middleware and handles any exceptions that occur during processing.
+            </summary>
+            <param name="context">The HTTP context for the current request.</param>
+            <returns>A task representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:POCProject.API.Middleware.GlobalExceptionHandlerMiddleware.HandleDbUpdateExceptionAsync(Microsoft.AspNetCore.Http.HttpContext,Microsoft.Data.SqlClient.SqlException)">
+            <summary>
+            Handles database update exceptions, specifically for duplicate key errors.
+            </summary>
+            <param name="context">The HTTP context for the current request.</param>
+            <param name="sqlEx">The SQL exception thrown during the database operation.</param>
+            <returns>A task representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:POCProject.API.Middleware.GlobalExceptionHandlerMiddleware.HandleGeneralExceptionAsync(Microsoft.AspNetCore.Http.HttpContext,System.Exception)">
+            <summary>
+            Handles general exceptions that occur during the request processing.
+            </summary>
+            <param name="context">The HTTP context for the current request.</param>
+            <param name="ex">The exception that was thrown.</param>
+            <returns>A task representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:POCProject.API.Middleware.GlobalExceptionHandlerMiddleware.ExtractDuplicateKeyValue(System.String)">
+            <summary>
+            Extracts the duplicate key value from the SQL exception message.
+            </summary>
+            <param name="message">The message from the SQL exception.</param>
+            <returns>The duplicate key value or "unknown value" if not found.</returns>
+        </member>
+        <member name="T:POCProject.API.ModelValidation.ErrorDetails">
+            <summary>
+            Represents the details of a specific error related to model validation.
+            Contains the name of the property with the issue, the error message, and the row number if applicable.
+            </summary>
+        </member>
+        <member name="P:POCProject.API.ModelValidation.ErrorDetails.Name">
+            <summary>
+            Gets or sets the name of the property that has a validation issue.
+            </summary>
+        </member>
+        <member name="P:POCProject.API.ModelValidation.ErrorDetails.Message">
+            <summary>
+            Gets or sets the error message explaining the validation issue.
+            </summary>
+        </member>
+        <member name="P:POCProject.API.ModelValidation.ErrorDetails.Number">
+            <summary>
+            Gets or sets the row number associated with the validation issue, if applicable.
+            Will be ignored in the JSON response if it is the default value (0).
+            </summary>
+        </member>
+        <member name="T:POCProject.API.ModelValidation.ModelErrorResponse">
+            <summary>
+            Represents a structured error response for model validation errors in an API.
+            It contains information such as the HTTP status code, a status phrase, a correlation ID,
+            a list of detailed errors, and a timestamp for when the error occurred.
+            </summary>
+        </member>
+        <member name="P:POCProject.API.ModelValidation.ModelErrorResponse.StatusCode">
+            <summary>
+            Gets or sets the HTTP status code of the error response.
+            </summary>
+        </member>
+        <member name="P:POCProject.API.ModelValidation.ModelErrorResponse.StatusPhrase">
+            <summary>
+            Gets or sets the status phrase describing the error.
+            </summary>
+        </member>
+        <member name="P:POCProject.API.ModelValidation.ModelErrorResponse.CorrelationId">
+            <summary>
+            Gets or sets a unique identifier for the request that caused the error,
+            useful for tracking and troubleshooting.
+            </summary>
+        </member>
+        <member name="P:POCProject.API.ModelValidation.ModelErrorResponse.Errors">
+            <summary>
+            Gets or sets a list of detailed error information related to the model validation.
+            </summary>
+        </member>
+        <member name="P:POCProject.API.ModelValidation.ModelErrorResponse.TimeStamp">
+            <summary>
+            Gets or sets the timestamp indicating when the error response was generated.
+            </summary>
+        </member>
+        <member name="M:POCProject.API.ModelValidation.ModelErrorResponse.GenerateErrorResponse(Microsoft.AspNetCore.Mvc.ActionContext)">
+            <summary>
+            Generates an error response based on the provided action context.
+            This method extracts validation errors from the model state and creates a <see cref="T:POCProject.API.ModelValidation.ModelErrorResponse"/> object.
+            </summary>
+            <param name="context">The action context containing the model state and other relevant information.</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> representing the error response.</returns>
+        </member>
+        <member name="T:POCProject.API.ServiceDependencies">
+            <summary></summary>
+        </member>
+        <member name="M:POCProject.API.ServiceDependencies.ConfigureService(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>Register services</summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:POCProject.API.ServiceDependencies.ConfigurePipeLine(Microsoft.AspNetCore.Builder.WebApplication)">
+            <summary>Register http pipelines </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

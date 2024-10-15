@@ -1,0 +1,62 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userprefs
+
+# Build results
+bin/
+obj/
+out/
+[Dd]ebug/
+[Rr]elease/
+[xX]64/
+[xX]86/
+[Aa][Rr][Mm]/
+[Ll]og/
+[Ll]ogs/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+packages/
+**/packages/
+
+# Secrets and sensitive data
+appsettings.Development.json
+appsettings.Production.json
+secrets.json
+*.env
+
+# Entity Framework Core
+*.mdf
+*.ldf
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files
+*~ 
+*.bak
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Visual Studio Code settings
+.vscode/
+
+# Test results
+TestResults/
+*.trx
+
+
+
+# Ignore specific class library folders if needed
+# Uncomment the lines below if you want to exclude specific class libraries
+# POCProject.Entities/
+# POCProject.Models/
+# POCProject.Services/
+# POCProject.Infrastructure/
+# POCProject.Tests/
