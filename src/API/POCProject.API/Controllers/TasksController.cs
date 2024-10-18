@@ -1,8 +1,6 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using POCProject.Models.Request;
 using POCProject.Models.Response;
-using POCProject.Services.Concrete;
 using POCProject.Services.Contract;
 
 namespace POCProject.API.Controllers;

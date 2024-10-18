@@ -70,6 +70,25 @@
             <param name="cancellationToken">A token to monitor for cancellation requests.</param>
             <returns>A <see cref="T:POCProject.Models.Response.BusinessResponse"/> containing the task details if found.</returns>
         </member>
+        <member name="T:POCProject.API.Controllers.UserController">
+            <summary>
+            Provides APIs for user management, including user creation and manipulation.
+            </summary>
+        </member>
+        <member name="M:POCProject.API.Controllers.UserController.#ctor(Microsoft.Extensions.Logging.ILogger{POCProject.API.Controllers.UserController},POCProject.Services.Contract.IUserService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:POCProject.API.Controllers.UserController"/> class.
+            </summary>
+            <param name="_logger">An instance of <see cref="T:Microsoft.Extensions.Logging.ILogger`1"/> used for logging.</param>
+            <param name="_userService"></param>
+        </member>
+        <member name="M:POCProject.API.Controllers.UserController.LoggedInUserAsync(POCProject.Models.Request.UserModel)">
+            <summary>
+            Generate token of user with the specified username and password.
+            </summary>
+            <param name="userModel">The username of the user and password.</param>
+            <returns>An IActionResult indicating the result of the operation.</returns>
+        </member>
         <member name="T:POCProject.API.Extensions.CorsExtendExtension">
             <summary>
             Provides extension methods for configuring Cross-Origin Resource Sharing (CORS) in a web application.
@@ -82,6 +101,19 @@
             Allows any origin, any header, and any HTTP method.
             </summary>
             <param name="builder">The <see cref="T:Microsoft.AspNetCore.Builder.WebApplicationBuilder"/> instance to which the CORS configuration will be applied.</param>
+        </member>
+        <member name="T:POCProject.API.Extensions.JwtExtension">
+            <summary>
+            Provides an extension method for configuring JWT authentication in a WebApplicationBuilder.
+            This class adds authentication services and sets up JWT bearer token validation parameters
+            using settings from the application's configuration file.
+            </summary>
+        </member>
+        <member name="M:POCProject.API.Extensions.JwtExtension.ConfigureJwt(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Configures JWT authentication services for the application.
+            </summary>
+            <param name="builder">The WebApplicationBuilder to configure.</param>
         </member>
         <member name="T:POCProject.API.Extensions.RegisterDependency">
             <summary> </summary>
@@ -98,6 +130,11 @@
             Register Swagger
             </summary>
             <param name="builder"></param>
+        </member>
+        <member name="T:POCProject.API.Extensions.UserSeederExtension">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:POCProject.API.Middleware.GlobalExceptionHandlerMiddleware">
             <summary>
@@ -141,6 +178,11 @@
             </summary>
             <param name="message">The message from the SQL exception.</param>
             <returns>The duplicate key value or "unknown value" if not found.</returns>
+        </member>
+        <member name="T:POCProject.API.Middleware.JwtMiddleware">
+            <summary>
+            Middleware to handle JWT authentication and custom logic.
+            </summary>
         </member>
         <member name="T:POCProject.API.ModelValidation.ErrorDetails">
             <summary>

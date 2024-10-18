@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\POCProject.Common\POCProject.Common.csproj" />
     <ProjectReference Include="..\POCProject.Infrastructure\POCProject.Infrastructure.csproj" />
     <ProjectReference Include="..\POCProject.Models\POCProject.Models.csproj" />
   </ItemGroup>

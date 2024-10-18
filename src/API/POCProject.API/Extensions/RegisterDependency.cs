@@ -1,5 +1,7 @@
-﻿using POCProject.Infrastructure.Repositories.Concrete;
+﻿using POCProject.Common.JwtHelper;
+using POCProject.Infrastructure.Repositories.Concrete;
 using POCProject.Infrastructure.Repositories.Contract;
+using POCProject.Infrastructure.Seeding;
 using POCProject.Infrastructure.UnitOfWork;
 using POCProject.Services.Concrete;
 using POCProject.Services.Contract;
@@ -19,12 +21,18 @@ public static class RegisterDependency
         builder.Services.AddScoped<ITaskImageRepository, TaskImageRepository>();
         builder.Services.AddScoped<ITaskColumnRepository, TaskColumnRepository>();
         builder.Services.AddScoped<IWrapper, Wrapper>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
         #endregion
 
         #region "Register Services"
         builder.Services.AddScoped<ITasksService, TasksService>();
         builder.Services.AddScoped<ITaskColumnService, TaskColumnService>();
         builder.Services.AddScoped<ITaskImageService, TaskImageService>();
+        builder.Services.AddScoped<IUserService, UserService>();
         #endregion
+
+        // Register the seed data service
+        builder.Services.AddScoped<ISeedData, SeedData>();
+        builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
     }
 }

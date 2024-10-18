@@ -1,10 +1,9 @@
-﻿using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using POCProject.API.Extensions;
 using POCProject.API.Middleware;
 using POCProject.API.ModelValidation;
+using POCProject.Common.Common;
 using POCProject.Infrastructure;
 using POCProject.Services.DtoMapperProfile;
 using System.Text.Json;
@@ -20,7 +19,11 @@ public static class ServiceDependencies
     /// <returns></returns>
     public static WebApplicationBuilder ConfigureService(this WebApplicationBuilder builder)
     {
-       // GetConnectionFromKeyValut();
+        #region "Bind JWT settings"
+        var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
+        builder.Services.AddSingleton(jwtSettings);
+        #endregion
+
         #region register PosgresSql Context
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
         {
@@ -33,6 +36,10 @@ public static class ServiceDependencies
             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         });
+        #region"Add Jwt"
+        builder.ConfigureJwt();
+        builder.Services.AddAuthorization();
+        #endregion
         #region"AutoMapper"
         builder.Services.AddAutoMapper(cfg =>
         {
@@ -58,10 +65,15 @@ public static class ServiceDependencies
     /// <returns></returns>
     public static WebApplication ConfigurePipeLine(this WebApplication app)
     {
+        app.UseMiddleware<JwtMiddleware>();
         app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
         app.UseHttpsRedirection();
+        app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
+        #region Seed the database
+        app.SeedDatabase();
+        #endregion
         app.UseCors();
         return app;
     }

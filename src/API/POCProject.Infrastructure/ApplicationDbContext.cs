@@ -37,6 +37,11 @@ public class ApplicationDbContext : DbContext
     public DbSet<TaskImageEntity> TaskImage { get; set; }
 
     /// <summary>
+    /// Get User and Generate token
+    /// </summary>
+    public DbSet<UserEntity> Users { get; set; }
+
+    /// <summary>
     /// Configures the model for the context, including entity relationships and constraints.
     /// </summary>
     /// <param name="modelBuilder">The builder used to configure the model.</param>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using POCProject.Models.Request;
 using POCProject.Services.Contract;
 
@@ -44,6 +45,7 @@ public class TaskColumnController : ControllerBase
     /// <returns>A list of columns in the task board.</returns>
     /// <response code="200">Returns a list of task columns.</response>
     /// <response code="404">If no columns are found.</response>
+    [Authorize]
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<TaskColumnModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
